@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Password Strength Analyzer{% endblock %}
+
+{% block content %}
+<div class="analyzer-container">
+    <h1>Password Strength Analyzer</h1>
+    <p>Check how secure a password is. Enter a dummy password below to see its entropy, estimated crack time, and potential weaknesses.</p>
+
+    <!-- Main input form -->
+    <form method="POST" class="analyzer-form">
+        <label for="password">Password to test</label>
+        <input type="text" id="password" name="password" value="{{ submitted or '' }}" autocomplete="off" required>
+        <button type="submit">Check Strength</button>
+    </form>
+
+    <!-- Results section -->
+    {% if result %}
+    <div class="result-box rating-{{ result.rating | lower | replace(' ', '-') }}">
+        <h2>Result: {{ result.rating }}</h2>
+        
+        <ul class="stats">
+            <li>Length: {{ result.password_length }} characters</li>
+            <li>Entropy: {{ result.entropy_bits }} bits</li>
+            <li>Crack time (1B guesses/sec): {{ result.crack_time_readable }}</li>
+        </ul>
+
+        {% if result.issues %}
+            <h3>Weaknesses</h3>
+            <ul>
+                {% for issue in result.issues %}
+                    <li>{{ issue }}</li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>Looks good. No major issues found.</p>
+        {% endif %}
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

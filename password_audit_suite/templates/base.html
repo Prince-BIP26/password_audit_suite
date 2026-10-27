@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{% block title %}Password Audit Suite{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <nav class="topnav">
+        <div class="brand">Password &amp; Credential Audit Suite</div>
+        <div class="links">
+            <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('dictionary_page') }}">Dictionary Generator</a>
+            <a href="{{ url_for('analyzer_page') }}">Strength Analyzer</a>
+            <a href="{{ url_for('cracker_page') }}">Hash &amp; Crack Demo</a>
+            <a href="{{ url_for('report_page') }}">Audit Report</a>
+        </div>
+    </nav>
+
+    <main class="content">
+        {% set messages = get_flashed_messages() %}
+        {% if messages %}
+            <div class="flash">
+                {% for msg in messages %}
+                <p>{{ msg }}</p>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>For coursework only. Runs against sample data, not live systems.</p>
+    </footer>
+
+</body>
+</html>

@@ -1,0 +1,7 @@
+# Sample /etc/shadow-style file for demonstration purposes only.
+# None of these hashes correspond to real accounts or real passwords.
+root:$6$fakesalt1$9f8a7b6c5d4e3f2a1b0c9d8e7f6a5b4c3d2e1f0a9b8c7d6e5f4a3b2c1d0e9f8a:19700:0:99999:7:::
+labuser:$6$fakesalt2$1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b1c2d3e4f5a6b7c8d9e0f1a2b:19700:0:99999:7:::
+guest:*:19700:0:99999:7:::
+legacyacct:$1$fakesalt3$oldFormatHashExampleOnly000000:19700:0:99999:7:::
+disabledacct:!!:19700:0:99999:7:::

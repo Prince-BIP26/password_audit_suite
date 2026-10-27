@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}Hash & Crack Demo{% endblock %}
+{% block content %}
+<h1>Hash &amp; Dictionary-Attack Demo</h1>
+<p>
+  Step 1: type a test password and hash it. Step 2: the suite runs a
+  straight dictionary attack against that hash using the wordlist
+  generated on the Dictionary Generator page (or a small built-in list
+  if you haven't generated one yet) and reports how long it took.
+</p>
+
+<form method="POST" action="{{ url_for('cracker_hash') }}">
+  <h2>Step 1: hash a test password</h2>
+  <label>Password <input type="text" name="password" autocomplete="off"></label>
+  <label>Algorithm
+    <select name="algo">
+      <option value="md5">MD5 (fast, weak)</option>
+      <option value="sha256" selected>SHA-256</option>
+      <option value="sha512">SHA-512</option>
+    </select>
+  </label>
+  <button type="submit">Hash it</button>
+</form>
+
+{% if generated_hash %}
+<div class="result-box">
+  <p><strong>Hash ({{ algo_used }}):</strong> <code>{{ generated_hash }}</code></p>
+</div>
+{% endif %}
+
+<form method="POST" action="{{ url_for('cracker_attack') }}">
+  <h2>Step 2: run the dictionary attack</h2>
+  <label>Target hash <input type="text" name="target_hash" value="{{ generated_hash or '' }}"></label>
+  <label>Algorithm
+    <select name="algo">
+      <option value="md5">MD5</option>
+      <option value="sha256" selected>SHA-256</option>
+      <option value="sha512">SHA-512</option>
+    </select>
+  </label>
+  <button type="submit">Run attack</button>
+</form>
+
+{% if attack_result %}
+<div class="result-box">
+  {% if attack_result.found %}
+  <p class="cracked">Password recovered: <strong>{{ attack_result.found }}</strong></p>
+  {% else %}
+  <p class="not-cracked">Not found in this wordlist.</p>
+  {% endif %}
+  <ul class="stats">
+    <li>Candidates tried: {{ attack_result.attempts }}</li>
+    <li>Time taken: {{ "%.4f"|format(attack_result.elapsed) }} seconds</li>
+  </ul>
+</div>
+{% endif %}
+{% endblock %}

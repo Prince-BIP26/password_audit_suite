@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Dictionary Generator{% endblock %}
+{% block content %}
+<h1>Dictionary Generator</h1>
+<p>Give it a name, a birth year, and a few keywords. It mutates them the way people actually mangle their own passwords: capitalized, leet-speak, with a year or a suffix tacked on.</p>
+
+<form method="POST">
+  <label>Name <input type="text" name="name" value="{{ form_name or '' }}" placeholder="e.g. priya"></label>
+  <label>Birth year <input type="text" name="dob_year" value="{{ form_dob or '' }}" placeholder="e.g. 1998"></label>
+  <label>Keywords (comma separated) <input type="text" name="keywords" value="{{ form_keywords or '' }}" placeholder="e.g. mumbai, cricket, bluecar"></label>
+  <label><input type="checkbox" name="use_leet" {% if use_leet %}checked{% endif %}> Include leet-speak mutations</label>
+  <label><input type="checkbox" name="use_common" {% if use_common %}checked{% endif %}> Include top 10 breached passwords</label>
+  <button type="submit">Generate wordlist</button>
+</form>
+
+{% if wordlist %}
+<h2>Generated {{ wordlist|length }} candidates</h2>
+<form method="POST" action="{{ url_for('dictionary_download') }}">
+  <input type="hidden" name="words" value="{{ wordlist|join(',') }}">
+  <button type="submit">Download as .txt</button>
+</form>
+<div class="wordlist-box">
+  {% for word in wordlist[:200] %}<span class="word">{{ word }}</span>{% endfor %}
+  {% if wordlist|length > 200 %}<p>...and {{ wordlist|length - 200 }} more (full list in the download).</p>{% endif %}
+</div>
+{% endif %}
+{% endblock %}

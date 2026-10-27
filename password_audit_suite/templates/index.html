@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Home{% endblock %}
+{% block content %}
+<h1>Password &amp; Credential Attack Suite</h1>
+<p>
+  A small toolkit for testing password policies: generate pattern-based
+  wordlists, check how strong a password actually is, and see how fast
+  a weak password falls to a dictionary attack. Everything here runs
+  against sample data or passwords you type in yourself, nothing
+  touches a live system.
+</p>
+
+<div class="card-grid">
+  <a class="card" href="{{ url_for('dictionary_page') }}">
+    <h2>Dictionary Generator</h2>
+    <p>Build a custom wordlist from a name, a birth year, and a few keywords.</p>
+  </a>
+  <a class="card" href="{{ url_for('analyzer_page') }}">
+    <h2>Strength Analyzer</h2>
+    <p>Check entropy, flag common weaknesses, estimate crack time.</p>
+  </a>
+  <a class="card" href="{{ url_for('cracker_page') }}">
+    <h2>Hash &amp; Crack Demo</h2>
+    <p>Hash a test password, then watch a dictionary attack try to recover it.</p>
+  </a>
+  <a class="card" href="{{ url_for('report_page') }}">
+    <h2>Audit Report</h2>
+    <p>Pull everything run this session into one summary.</p>
+  </a>
+</div>
+
+<h2>Sample shadow file format</h2>
+<p>
+  <a href="{{ url_for('shadow_demo') }}">View the sample /etc/shadow-format file</a>
+  bundled with this project, broken down field by field. The data in it
+  is fabricated for teaching purposes, it is not pulled from any real system.
+</p>
+{% endblock %}

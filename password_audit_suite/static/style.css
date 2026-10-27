@@ -1,0 +1,245 @@
+/* Color Theme Variables */
+:root {
+  --bg-dark: #0f1115;
+  --surface: #171a21;
+  --line-color: #2a2e37;
+  --text-main: #e4e6eb;
+  --text-sub: #9aa0ab;
+  --brand-blue: #4f8cff;
+  --alert-red: #e5484d;
+  --success-green: #3fb950;
+}
+
+/* Global Reset */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  background: var(--bg-dark);
+  color: var(--text-main);
+}
+
+/* Navigation Bar */
+.topnav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 14px 24px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line-color);
+}
+
+.brand {
+  font-weight: 600;
+}
+
+.links a {
+  margin-left: 18px;
+  color: var(--text-sub);
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.links a:hover {
+  color: var(--text-main);
+}
+
+/* Main Layout Wrapper */
+.content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 32px 20px 60px;
+}
+
+/* Typography */
+h1 {
+  margin-bottom: 8px;
+  font-size: 26px;
+}
+
+h2 {
+  margin-top: 28px;
+  font-size: 19px;
+}
+
+p {
+  color: var(--text-sub);
+  line-height: 1.5;
+}
+
+/* Grid Components */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+  margin-top: 20px;
+}
+
+.card {
+  display: block;
+  padding: 16px;
+  background: var(--surface);
+  border: 1px solid var(--line-color);
+  border-radius: 8px;
+  color: var(--text-main);
+  text-decoration: none;
+}
+
+.card:hover {
+  border-color: var(--brand-blue);
+}
+
+.card h2 {
+  margin: 0 0 6px;
+  font-size: 16px;
+}
+
+.card p {
+  margin: 0;
+  font-size: 13px;
+}
+
+/* Form Elements */
+form {
+  margin-top: 16px;
+  padding: 18px;
+  background: var(--surface);
+  border: 1px solid var(--line-color);
+  border-radius: 8px;
+}
+
+label {
+  display: block;
+  margin-bottom: 12px;
+  color: var(--text-sub);
+  font-size: 14px;
+}
+
+input[type="text"], 
+select {
+  display: block;
+  width: 100%;
+  margin-top: 4px;
+  padding: 8px 10px;
+  background: var(--bg-dark);
+  border: 1px solid var(--line-color);
+  border-radius: 6px;
+  color: var(--text-main);
+  font-size: 14px;
+}
+
+input[type="checkbox"] {
+  display: inline-block;
+  width: auto;
+  margin-right: 6px;
+}
+
+button {
+  padding: 9px 16px;
+  background: var(--brand-blue);
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+/* Data Display & Reports */
+.result-box, 
+.report-section {
+  margin-top: 18px;
+  padding: 16px 18px;
+  background: var(--surface);
+  border: 1px solid var(--line-color);
+  border-radius: 8px;
+}
+
+.stats {
+  margin: 10px 0;
+  padding: 0;
+  list-style: none;
+  color: var(--text-main);
+  font-size: 14px;
+}
+
+.stats li {
+  margin-bottom: 4px;
+}
+
+.wordlist-box {
+  max-height: 320px;
+  margin-top: 14px;
+  padding: 14px;
+  background: var(--surface);
+  border: 1px solid var(--line-color);
+  border-radius: 8px;
+  overflow-y: auto;
+}
+
+.word {
+  display: inline-block;
+  margin: 3px;
+  padding: 3px 8px;
+  background: var(--bg-dark);
+  border: 1px solid var(--line-color);
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 12px;
+}
+
+/* Status Indicators */
+.cracked {
+  color: var(--alert-red);
+  font-size: 16px;
+}
+
+.not-cracked {
+  color: var(--success-green);
+  font-size: 16px;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  margin-top: 16px;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+th, 
+td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--line-color);
+  text-align: left;
+}
+
+code {
+  font-family: monospace;
+  font-size: 12px;
+  color: var(--brand-blue);
+  word-break: break-all;
+}
+
+/* Notifications & Footer */
+.flash {
+  margin-bottom: 16px;
+  padding: 10px 16px;
+  background: var(--line-color);
+  border-radius: 6px;
+}
+
+footer {
+  padding: 20px;
+  color: var(--text-sub);
+  font-size: 12px;
+  text-align: center;
+  border-top: 1px solid var(--line-color);
+}

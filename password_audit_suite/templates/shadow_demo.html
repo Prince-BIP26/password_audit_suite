@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Sample Shadow File{% endblock %}
+{% block content %}
+<h1>Sample /etc/shadow Format</h1>
+<p>This parses a fabricated sample file bundled with the project (sample_data/demo_shadow.txt), not a real system's shadow file. It's here to show what each field means.</p>
+
+<table>
+  <thead>
+    <tr><th>Username</th><th>Hash field</th><th>Algorithm</th><th>Note</th></tr>
+  </thead>
+  <tbody>
+    {% for entry in entries %}
+    <tr>
+      <td>{{ entry.username }}</td>
+      <td><code>{{ entry.hash }}</code></td>
+      <td>{{ entry.algorithm }}</td>
+      <td>{{ entry.note }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

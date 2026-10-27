@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Audit Report{% endblock %}
+{% block content %}
+<h1>Session Audit Report</h1>
+<p>Pulls together everything run in this session: the last wordlist generated, the last password analyzed, and the last crack attempt.</p>
+
+<div class="report-section">
+  <h2>Dictionary Generator</h2>
+  {% if session_data.wordlist_count %}
+    <p>Last wordlist generated: {{ session_data.wordlist_count }} candidates from inputs ({{ session_data.wordlist_inputs }}).</p>
+  {% else %}
+    <p>Nothing generated yet. <a href="{{ url_for('dictionary_page') }}">Go generate one</a>.</p>
+  {% endif %}
+</div>
+
+<div class="report-section">
+  <h2>Strength Analyzer</h2>
+  {% if session_data.last_analysis %}
+    <p>Last password checked rated <strong>{{ session_data.last_analysis.rating }}</strong>
+       ({{ session_data.last_analysis.entropy_bits }} bits entropy,
+       estimated crack time {{ session_data.last_analysis.crack_time_readable }}).</p>
+    {% if session_data.last_analysis.issues %}
+    <ul>{% for i in session_data.last_analysis.issues %}<li>{{ i }}</li>{% endfor %}</ul>
+    {% endif %}
+  {% else %}
+    <p>No password analyzed yet. <a href="{{ url_for('analyzer_page') }}">Check one</a>.</p>
+  {% endif %}
+</div>
+
+<div class="report-section">
+  <h2>Hash &amp; Crack Demo</h2>
+  {% if session_data.last_attack %}
+    <p>
+      Last attack {% if session_data.last_attack.found %}recovered the password
+      <strong>{{ session_data.last_attack.found }}</strong>{% else %}did not recover the password{% endif %}
+      after {{ session_data.last_attack.attempts }} attempts in
+      {{ "%.4f"|format(session_data.last_attack.elapsed) }} seconds.
+    </p>
+  {% else %}
+    <p>No attack run yet. <a href="{{ url_for('cracker_page') }}">Run one</a>.</p>
+  {% endif %}
+</div>
+
+<h2>Recommended policy baseline</h2>
+<ul>
+  <li>Minimum 12 characters, no maximum under 64.</li>
+  <li>Block the top 10,000 breached passwords at account creation.</li>
+  <li>Store with a slow, salted hash (bcrypt, scrypt, or argon2), never raw MD5/SHA-1.</li>
+  <li>Rate-limit and lock out after repeated failed logins.</li>
+  <li>Turn on multi-factor authentication wherever it's supported.</li>
+</ul>
+{% endblock %}
